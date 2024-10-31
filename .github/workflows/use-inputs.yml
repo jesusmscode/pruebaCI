@@ -1,0 +1,22 @@
+# En el segundo workflow (child-workflow.yml)
+name: Child Workflow
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      version:
+        required: false
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy code
+        run: echo "Desplegando en ${{ inputs.environment }} con versión ${{ inputs.version }}"
