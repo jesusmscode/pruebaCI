@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       download_url:
-        description: 'https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+        description: 'https://codilamar.com/tienda/pdf/otros-manuales/LD7207.pdf'
         required: true
 
 jobs:
