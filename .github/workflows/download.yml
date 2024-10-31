@@ -1,0 +1,23 @@
+name: Descargar y subir archivo
+
+on:
+  workflow_dispatch:
+    inputs:
+      download_url:
+        description: 'https://www.learningcontainer.com/wp-content/uploads/2020/04/sample-text-file.txt'
+        required: true
+
+jobs:
+  download_and_upload:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Descargar archivo sin autenticación
+      run: |
+        curl -L -o archivo.zip "${{ github.event.inputs.download_url }}"
+
+    - name: Subir archivo como artefacto
+      uses: actions/upload-artifact@v3
+      with:
+        name: archivo-descargado
+        path: archivo.zip
