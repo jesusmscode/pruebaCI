@@ -2,10 +2,6 @@ name: Descargar y subir archivo
 
 on:
   workflow_dispatch:
-    inputs:
-      download_url:
-        description: 'https://codilamar.com/tienda/pdf/otros-manuales/LD7207.pdf'
-        required: true
 
 jobs:
   download_and_upload:
@@ -14,10 +10,10 @@ jobs:
     steps:
     - name: Descargar archivo sin autenticación
       run: |
-        curl -L -o archivo.zip "${{ github.event.inputs.download_url }}"
+        curl -L -o archivo.pdf "https://codilamar.com/tienda/pdf/otros-manuales/LD7207.pdf"
 
     - name: Subir archivo como artefacto
       uses: actions/upload-artifact@v3
       with:
         name: archivo-descargado
-        path: archivo.zip
+        path: archivo.pdf
