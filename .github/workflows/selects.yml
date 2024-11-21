@@ -4,13 +4,14 @@ on:
   workflow_dispatch:
     inputs:
       country:
-        description: "Select the country"
+        description: "Select the country (or all)"
         required: true
         default: "ES"
         type: choice
         options:
           - ES
           - DE
+          - all
       environment:
         description: "Select the environment"
         required: true
@@ -27,13 +28,19 @@ jobs:
     steps:
       - name: Display selected inputs
         run: |
-          echo "Country: ${{ github.event.inputs.country }}"
-          echo "Environment: ${{ github.event.inputs.environment }}"
-
-      - name: Checkout code
-        uses: actions/checkout@v3
+          echo "Selected Country: ${{ github.event.inputs.country }}"
+          echo "Selected Environment: ${{ github.event.inputs.environment }}"
 
       - name: Deploy application
         run: |
-          echo "Deploying to country ${{ github.event.inputs.country }} in ${{ github.event.inputs.environment }} environment"
-          # Aquí puedes incluir el script de despliegue que necesitas.
+          echo "Starting deployment..."
+          
+          if [ "${{ github.event.inputs.country }}" == "all" ]; then
+            for country in ES DE; do
+              echo "Deploying to country: $country in environment: ${{ github.event.inputs.environment }}"
+              # Aquí puedes añadir el script de despliegue por cada país
+            done
+          else
+            echo "Deploying to country: ${{ github.event.inputs.country }} in environment: ${{ github.event.inputs.environment }}"
+            # Aquí puedes añadir el script de despliegue para un único país
+          fi
