@@ -1,0 +1,39 @@
+name: Deploy Application
+
+on:
+  workflow_dispatch:
+    inputs:
+      country:
+        description: "Select the country"
+        required: true
+        default: "ES"
+        type: choice
+        options:
+          - ES
+          - DE
+      environment:
+        description: "Select the environment"
+        required: true
+        default: "staging"
+        type: choice
+        options:
+          - production
+          - staging
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Display selected inputs
+        run: |
+          echo "Country: ${{ github.event.inputs.country }}"
+          echo "Environment: ${{ github.event.inputs.environment }}"
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy application
+        run: |
+          echo "Deploying to country ${{ github.event.inputs.country }} in ${{ github.event.inputs.environment }} environment"
+          # Aquí puedes incluir el script de despliegue que necesitas.
